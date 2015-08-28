@@ -1,0 +1,514 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8F0968841B8CF4CA00605186 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0968831B8CF4CA00605186 /* main.m */; };
+		8F0968871B8CF4CA00605186 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0968861B8CF4CA00605186 /* AppDelegate.m */; };
+		8F09688A1B8CF4CA00605186 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0968891B8CF4CA00605186 /* ViewController.m */; };
+		8F09688D1B8CF4CA00605186 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F09688B1B8CF4CA00605186 /* Main.storyboard */; };
+		8F09688F1B8CF4CA00605186 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F09688E1B8CF4CA00605186 /* Images.xcassets */; };
+		8F0968921B8CF4CA00605186 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0968901B8CF4CA00605186 /* LaunchScreen.xib */; };
+		8F09689E1B8CF4CA00605186 /* ChatterFoxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F09689D1B8CF4CA00605186 /* ChatterFoxTests.m */; };
+		8F0968A81B8D2B3600605186 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F0968A71B8D2B3600605186 /* GoogleService-Info.plist */; };
+		8F0968AC1B90FDFF00605186 /* iossplash320480.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0968A91B90FDFF00605186 /* iossplash320480.png */; };
+		8F0968AD1B90FDFF00605186 /* iossplash640960.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0968AA1B90FDFF00605186 /* iossplash640960.png */; };
+		8F0968AE1B90FDFF00605186 /* iossplash6401136.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0968AB1B90FDFF00605186 /* iossplash6401136.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F0968981B8CF4CA00605186 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F0968761B8CF4CA00605186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F09687D1B8CF4CA00605186;
+			remoteInfo = ChatterFox;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0E2F8F15ED2F4EC0BE919B0C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FDB80DA9BB89BED4DFB3C96 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8C243515449B741294F20058 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		8F09687E1B8CF4CA00605186 /* ChatterFox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatterFox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F0968821B8CF4CA00605186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F0968831B8CF4CA00605186 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8F0968851B8CF4CA00605186 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8F0968861B8CF4CA00605186 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8F0968881B8CF4CA00605186 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8F0968891B8CF4CA00605186 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8F09688C1B8CF4CA00605186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8F09688E1B8CF4CA00605186 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8F0968911B8CF4CA00605186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		8F0968971B8CF4CA00605186 /* ChatterFoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatterFoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F09689C1B8CF4CA00605186 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F09689D1B8CF4CA00605186 /* ChatterFoxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatterFoxTests.m; sourceTree = "<group>"; };
+		8F0968A71B8D2B3600605186 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8F0968A91B90FDFF00605186 /* iossplash320480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iossplash320480.png; sourceTree = "<group>"; };
+		8F0968AA1B90FDFF00605186 /* iossplash640960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iossplash640960.png; sourceTree = "<group>"; };
+		8F0968AB1B90FDFF00605186 /* iossplash6401136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iossplash6401136.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8F09687B1B8CF4CA00605186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F0968941B8CF4CA00605186 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6062901DB4D54B3D0C2470A9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8C243515449B741294F20058 /* Pods.debug.xcconfig */,
+				1FDB80DA9BB89BED4DFB3C96 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8F0968751B8CF4CA00605186 = {
+			isa = PBXGroup;
+			children = (
+				8F0968A71B8D2B3600605186 /* GoogleService-Info.plist */,
+				8F0968801B8CF4CA00605186 /* ChatterFox */,
+				8F09689A1B8CF4CA00605186 /* ChatterFoxTests */,
+				8F09687F1B8CF4CA00605186 /* Products */,
+				6062901DB4D54B3D0C2470A9 /* Pods */,
+				C43C3976A3FEC2D7B5CFBBFA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8F09687F1B8CF4CA00605186 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F09687E1B8CF4CA00605186 /* ChatterFox.app */,
+				8F0968971B8CF4CA00605186 /* ChatterFoxTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8F0968801B8CF4CA00605186 /* ChatterFox */ = {
+			isa = PBXGroup;
+			children = (
+				8F0968851B8CF4CA00605186 /* AppDelegate.h */,
+				8F0968861B8CF4CA00605186 /* AppDelegate.m */,
+				8F0968881B8CF4CA00605186 /* ViewController.h */,
+				8F0968891B8CF4CA00605186 /* ViewController.m */,
+				8F0968A91B90FDFF00605186 /* iossplash320480.png */,
+				8F0968AA1B90FDFF00605186 /* iossplash640960.png */,
+				8F0968AB1B90FDFF00605186 /* iossplash6401136.png */,
+				8F09688B1B8CF4CA00605186 /* Main.storyboard */,
+				8F09688E1B8CF4CA00605186 /* Images.xcassets */,
+				8F0968901B8CF4CA00605186 /* LaunchScreen.xib */,
+				8F0968811B8CF4CA00605186 /* Supporting Files */,
+			);
+			path = ChatterFox;
+			sourceTree = "<group>";
+		};
+		8F0968811B8CF4CA00605186 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8F0968821B8CF4CA00605186 /* Info.plist */,
+				8F0968831B8CF4CA00605186 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8F09689A1B8CF4CA00605186 /* ChatterFoxTests */ = {
+			isa = PBXGroup;
+			children = (
+				8F09689D1B8CF4CA00605186 /* ChatterFoxTests.m */,
+				8F09689B1B8CF4CA00605186 /* Supporting Files */,
+			);
+			path = ChatterFoxTests;
+			sourceTree = "<group>";
+		};
+		8F09689B1B8CF4CA00605186 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8F09689C1B8CF4CA00605186 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C43C3976A3FEC2D7B5CFBBFA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E2F8F15ED2F4EC0BE919B0C /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8F09687D1B8CF4CA00605186 /* ChatterFox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F0968A11B8CF4CA00605186 /* Build configuration list for PBXNativeTarget "ChatterFox" */;
+			buildPhases = (
+				18CA330C9B95E8B981E5505B /* Check Pods Manifest.lock */,
+				8F09687A1B8CF4CA00605186 /* Sources */,
+				8F09687B1B8CF4CA00605186 /* Frameworks */,
+				8F09687C1B8CF4CA00605186 /* Resources */,
+				5BEE468E87CBBD4F30F73B78 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChatterFox;
+			productName = ChatterFox;
+			productReference = 8F09687E1B8CF4CA00605186 /* ChatterFox.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8F0968961B8CF4CA00605186 /* ChatterFoxTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F0968A41B8CF4CA00605186 /* Build configuration list for PBXNativeTarget "ChatterFoxTests" */;
+			buildPhases = (
+				8F0968931B8CF4CA00605186 /* Sources */,
+				8F0968941B8CF4CA00605186 /* Frameworks */,
+				8F0968951B8CF4CA00605186 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F0968991B8CF4CA00605186 /* PBXTargetDependency */,
+			);
+			name = ChatterFoxTests;
+			productName = ChatterFoxTests;
+			productReference = 8F0968971B8CF4CA00605186 /* ChatterFoxTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8F0968761B8CF4CA00605186 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Datton User";
+				TargetAttributes = {
+					8F09687D1B8CF4CA00605186 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					8F0968961B8CF4CA00605186 = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = 8F09687D1B8CF4CA00605186;
+					};
+				};
+			};
+			buildConfigurationList = 8F0968791B8CF4CA00605186 /* Build configuration list for PBXProject "ChatterFox" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8F0968751B8CF4CA00605186;
+			productRefGroup = 8F09687F1B8CF4CA00605186 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8F09687D1B8CF4CA00605186 /* ChatterFox */,
+				8F0968961B8CF4CA00605186 /* ChatterFoxTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8F09687C1B8CF4CA00605186 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F09688D1B8CF4CA00605186 /* Main.storyboard in Resources */,
+				8F0968AD1B90FDFF00605186 /* iossplash640960.png in Resources */,
+				8F0968A81B8D2B3600605186 /* GoogleService-Info.plist in Resources */,
+				8F0968921B8CF4CA00605186 /* LaunchScreen.xib in Resources */,
+				8F0968AC1B90FDFF00605186 /* iossplash320480.png in Resources */,
+				8F09688F1B8CF4CA00605186 /* Images.xcassets in Resources */,
+				8F0968AE1B90FDFF00605186 /* iossplash6401136.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F0968951B8CF4CA00605186 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18CA330C9B95E8B981E5505B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5BEE468E87CBBD4F30F73B78 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8F09687A1B8CF4CA00605186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F09688A1B8CF4CA00605186 /* ViewController.m in Sources */,
+				8F0968871B8CF4CA00605186 /* AppDelegate.m in Sources */,
+				8F0968841B8CF4CA00605186 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F0968931B8CF4CA00605186 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F09689E1B8CF4CA00605186 /* ChatterFoxTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F0968991B8CF4CA00605186 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F09687D1B8CF4CA00605186 /* ChatterFox */;
+			targetProxy = 8F0968981B8CF4CA00605186 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8F09688B1B8CF4CA00605186 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F09688C1B8CF4CA00605186 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8F0968901B8CF4CA00605186 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F0968911B8CF4CA00605186 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8F09689F1B8CF4CA00605186 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8F0968A01B8CF4CA00605186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8F0968A21B8CF4CA00605186 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C243515449B741294F20058 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = ChatterFox/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8F0968A31B8CF4CA00605186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FDB80DA9BB89BED4DFB3C96 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = ChatterFox/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8F0968A51B8CF4CA00605186 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ChatterFoxTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatterFox.app/ChatterFox";
+			};
+			name = Debug;
+		};
+		8F0968A61B8CF4CA00605186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ChatterFoxTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatterFox.app/ChatterFox";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8F0968791B8CF4CA00605186 /* Build configuration list for PBXProject "ChatterFox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F09689F1B8CF4CA00605186 /* Debug */,
+				8F0968A01B8CF4CA00605186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F0968A11B8CF4CA00605186 /* Build configuration list for PBXNativeTarget "ChatterFox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F0968A21B8CF4CA00605186 /* Debug */,
+				8F0968A31B8CF4CA00605186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F0968A41B8CF4CA00605186 /* Build configuration list for PBXNativeTarget "ChatterFoxTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F0968A51B8CF4CA00605186 /* Debug */,
+				8F0968A61B8CF4CA00605186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8F0968761B8CF4CA00605186 /* Project object */;
+}
