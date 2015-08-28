@@ -16,6 +16,7 @@ static NSString *cfUrlString = @"http://cf.dev.datton.ca/mobile#/";
 static NSString *cfUserProfileUrlString = @"http://cf.dev.datton.ca/api/user/profile";
 static NSString *csrfUrlString = @"http://cf.dev.datton.ca/api";
 static NSString *cfPostGCMTokenUrlString = @"http://cf.dev.datton.ca/api/gcmToken";
+static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
 
 @implementation ViewController
 @synthesize mainWebView;
@@ -31,32 +32,42 @@ static NSString *cfPostGCMTokenUrlString = @"http://cf.dev.datton.ca/api/gcmToke
                                              selector:@selector(showReceivedMessage:)
                                                  name:appDelegate.messageKey
                                                object:nil];
-    _registrationProgressing.hidesWhenStopped = YES;
-    [_registrationProgressing startAnimating];
+   
+    [_activityIndicator startAnimating];
     
     mainWebView.delegate = self;
     // load cf starts
-    
-    
     NSURL *cfUrl = [NSURL URLWithString:cfUrlString];
     
     NSURLRequest *request = [NSURLRequest requestWithURL: cfUrl];
     
     [mainWebView loadRequest:request];
     
-    NSLog(@"This is it");
-    
+    NSLog(@"This is it");    
     // load cf ends
     
-    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.activityIndicator.center = self.view.center;
-    [self.view addSubview:self.activityIndicator];
+//    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    self.activityIndicator.center = self.view.center;
+//    [self.view bringSubviewToFront:self.activityIndicator];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [_activityIndicator stopAnimating];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *requestUrl = [[request URL] absoluteString];
     NSLog(@"url %@", requestUrl);
+    
+    if([requestUrl isEqualToString:cfUrlString] && urlRoomId != nil) {
+        NSString *roomUrlString = [NSString stringWithFormat: cfRoomUrlString, urlRoomId];
+        NSURL *roomUrl = [NSURL URLWithString:roomUrlString];
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL: roomUrl];
+        
+        [mainWebView loadRequest:request];
+    }
     
     // Save room id to avoid reload once notification comes in
     int indexOfRoom = [requestUrl rangeOfString:@"mobile#/room/"].location;
@@ -137,16 +148,16 @@ static NSString *cfPostGCMTokenUrlString = @"http://cf.dev.datton.ca/api/gcmToke
 }
 
 - (void) updateRegistrationStatus:(NSNotification *) notification {
-    [_registrationProgressing stopAnimating];
-    if ([notification.userInfo objectForKey:@"error"]) {
-        _registeringLabel.text = @"Error registering!";
-        [self showAlert:@"Error registering with GCM" withMessage:notification.userInfo[@"error"]];
-    } else {
-        _registeringLabel.text = @"Registered!";
-        NSString *message = @"Check the xcode debug console for the registration token that you can"
-        " use with the demo server to send notifications to your device";
-        [self showAlert:@"Registration Successful" withMessage:message];
-    };
+//    [_activityIndicator stopAnimating];
+//    if ([notification.userInfo objectForKey:@"error"]) {
+//        _registeringLabel.text = @"Error registering!";
+//        [self showAlert:@"Error registering with GCM" withMessage:notification.userInfo[@"error"]];
+//    } else {
+//        _registeringLabel.text = @"Registered!";
+//        NSString *message = @"Check the xcode debug console for the registration token that you can"
+//        " use with the demo server to send notifications to your device";
+//        [self showAlert:@"Registration Successful" withMessage:message];
+//    };
 }
 
 - (void) showReceivedMessage:(NSNotification *) notification {
@@ -171,7 +182,7 @@ static NSString *cfPostGCMTokenUrlString = @"http://cf.dev.datton.ca/api/gcmToke
             if(![roomId isEqualToString:urlRoomId]) {
                 //self.activityIndicator.hidden = NO;
                 //[self.activityIndicator startAnimating];
-                NSString *roomUrlString = [NSString stringWithFormat: @"http://cf.dev.datton.ca/mobile#/room/%@", roomId];
+                NSString *roomUrlString = [NSString stringWithFormat: cfRoomUrlString, roomId];
                 NSURL *roomUrl = [NSURL URLWithString:roomUrlString];
                 
                 NSURLRequest *request = [NSURLRequest requestWithURL: roomUrl];
@@ -194,14 +205,6 @@ static NSString *cfPostGCMTokenUrlString = @"http://cf.dev.datton.ca/api/gcmToke
 //    NSLog(@"Finished loading");
 //    self.activityIndicator.hidden = YES;
 //    [self.activityIndicator stopAnimating];
-//}
-
-//- (UIActivityIndicatorView *)activityIndicator {
-//    if(!_activityIndicator) {
-//        _activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-//    }
-//    
-//    return _activityIndicator;
 //}
 
 - (void)showAlert:(NSString *)title withMessage:(NSString *) message{

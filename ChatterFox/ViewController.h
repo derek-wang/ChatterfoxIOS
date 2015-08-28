@@ -11,9 +11,8 @@
 @interface ViewController : UIViewController<UIWebViewDelegate, NSURLConnectionDelegate>
 
 @property(nonatomic, weak) IBOutlet UILabel *registeringLabel;
-@property(nonatomic, weak) IBOutlet UIActivityIndicatorView *registrationProgressing;
 @property (strong, nonatomic) IBOutlet UIWebView *mainWebView;
-@property(strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 extern NSString *userId;
 @end
 
