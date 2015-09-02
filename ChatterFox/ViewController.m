@@ -12,6 +12,7 @@
 
 NSString *userId = nil;
 NSString *urlRoomId = nil;
+NSString *initialUrl = nil;
 static NSString *cfUrlString = @"http://cf.dev.datton.ca/mobile#/";
 static NSString *cfUserProfileUrlString = @"http://cf.dev.datton.ca/api/user/profile";
 static NSString *csrfUrlString = @"http://cf.dev.datton.ca/api";
@@ -60,7 +61,7 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
     NSString *requestUrl = [[request URL] absoluteString];
     NSLog(@"url %@", requestUrl);
     
-    if([requestUrl isEqualToString:cfUrlString] && urlRoomId != nil) {
+    if([initialUrl isEqualToString:cfUrlString] && urlRoomId != nil) {
         NSString *roomUrlString = [NSString stringWithFormat: cfRoomUrlString, urlRoomId];
         NSURL *roomUrl = [NSURL URLWithString:roomUrlString];
         
@@ -68,6 +69,7 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
         
         [mainWebView loadRequest:request];
     }
+    initialUrl = requestUrl;
     
     // Save room id to avoid reload once notification comes in
     int indexOfRoom = [requestUrl rangeOfString:@"mobile#/room/"].location;
@@ -149,19 +151,19 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
 
 - (void) updateRegistrationStatus:(NSNotification *) notification {
 //    [_activityIndicator stopAnimating];
-//    if ([notification.userInfo objectForKey:@"error"]) {
-//        _registeringLabel.text = @"Error registering!";
-//        [self showAlert:@"Error registering with GCM" withMessage:notification.userInfo[@"error"]];
-//    } else {
-//        _registeringLabel.text = @"Registered!";
-//        NSString *message = @"Check the xcode debug console for the registration token that you can"
-//        " use with the demo server to send notifications to your device";
-//        [self showAlert:@"Registration Successful" withMessage:message];
-//    };
+    if ([notification.userInfo objectForKey:@"error"]) {
+        _registeringLabel.text = @"Error registering!";
+        [self showAlert:@"Error registering with GCM" withMessage:notification.userInfo[@"error"]];
+    } else {
+        _registeringLabel.text = @"Registered!";
+        NSString *message = @"Check the xcode debug console for the registration token that you can"
+        " use with the demo server to send notifications to your device";
+        [self showAlert:@"Registration Successful" withMessage:message];
+    };
 }
 
 - (void) showReceivedMessage:(NSNotification *) notification {
-    NSString *message = notification.userInfo[@"aps"][@"alert"];
+    //NSString *message = notification.userInfo[@"aps"][@"alert"];
     
     if(userId != nil) {
         // check if the app is in foreground

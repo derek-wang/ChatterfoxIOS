@@ -18,6 +18,10 @@
 		8F0968AC1B90FDFF00605186 /* iossplash320480.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0968A91B90FDFF00605186 /* iossplash320480.png */; };
 		8F0968AD1B90FDFF00605186 /* iossplash640960.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0968AA1B90FDFF00605186 /* iossplash640960.png */; };
 		8F0968AE1B90FDFF00605186 /* iossplash6401136.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0968AB1B90FDFF00605186 /* iossplash6401136.png */; };
+		8F66B7131B9661A600C43554 /* splash1024768.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B70F1B9661A600C43554 /* splash1024768.png */; };
+		8F66B7141B9661A600C43554 /* splash7681024.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7101B9661A600C43554 /* splash7681024.png */; };
+		8F66B7151B9661A600C43554 /* splash15362048.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7111B9661A600C43554 /* splash15362048.png */; };
+		8F66B7161B9661A600C43554 /* splash20481536.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7121B9661A600C43554 /* splash20481536.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		8F0968A91B90FDFF00605186 /* iossplash320480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iossplash320480.png; sourceTree = "<group>"; };
 		8F0968AA1B90FDFF00605186 /* iossplash640960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iossplash640960.png; sourceTree = "<group>"; };
 		8F0968AB1B90FDFF00605186 /* iossplash6401136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iossplash6401136.png; sourceTree = "<group>"; };
+		8F66B70F1B9661A600C43554 /* splash1024768.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash1024768.png; sourceTree = "<group>"; };
+		8F66B7101B9661A600C43554 /* splash7681024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash7681024.png; sourceTree = "<group>"; };
+		8F66B7111B9661A600C43554 /* splash15362048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash15362048.png; sourceTree = "<group>"; };
+		8F66B7121B9661A600C43554 /* splash20481536.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash20481536.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +119,10 @@
 				8F0968A91B90FDFF00605186 /* iossplash320480.png */,
 				8F0968AA1B90FDFF00605186 /* iossplash640960.png */,
 				8F0968AB1B90FDFF00605186 /* iossplash6401136.png */,
+				8F66B70F1B9661A600C43554 /* splash1024768.png */,
+				8F66B7101B9661A600C43554 /* splash7681024.png */,
+				8F66B7111B9661A600C43554 /* splash15362048.png */,
+				8F66B7121B9661A600C43554 /* splash20481536.png */,
 				8F09688B1B8CF4CA00605186 /* Main.storyboard */,
 				8F09688E1B8CF4CA00605186 /* Images.xcassets */,
 				8F0968901B8CF4CA00605186 /* LaunchScreen.xib */,
@@ -204,9 +216,16 @@
 				TargetAttributes = {
 					8F09687D1B8CF4CA00605186 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = N2KU7B7CCM;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 					8F0968961B8CF4CA00605186 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = N2KU7B7CCM;
 						TestTargetID = 8F09687D1B8CF4CA00605186;
 					};
 				};
@@ -235,11 +254,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F66B7141B9661A600C43554 /* splash7681024.png in Resources */,
 				8F09688D1B8CF4CA00605186 /* Main.storyboard in Resources */,
 				8F0968AD1B90FDFF00605186 /* iossplash640960.png in Resources */,
+				8F66B7151B9661A600C43554 /* splash15362048.png in Resources */,
 				8F0968A81B8D2B3600605186 /* GoogleService-Info.plist in Resources */,
+				8F66B7131B9661A600C43554 /* splash1024768.png in Resources */,
 				8F0968921B8CF4CA00605186 /* LaunchScreen.xib in Resources */,
 				8F0968AC1B90FDFF00605186 /* iossplash320480.png in Resources */,
+				8F66B7161B9661A600C43554 /* splash20481536.png in Resources */,
 				8F09688F1B8CF4CA00605186 /* Images.xcassets in Resources */,
 				8F0968AE1B90FDFF00605186 /* iossplash6401136.png in Resources */,
 			);
@@ -375,6 +398,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -397,7 +421,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -412,6 +437,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -424,10 +450,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ChatterFox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -437,10 +466,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				INFOPLIST_FILE = ChatterFox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -448,6 +480,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -459,6 +493,7 @@
 				INFOPLIST_FILE = ChatterFoxTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatterFox.app/ChatterFox";
 			};
 			name = Debug;
@@ -467,6 +502,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -474,6 +511,7 @@
 				INFOPLIST_FILE = ChatterFoxTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatterFox.app/ChatterFox";
 			};
 			name = Release;
