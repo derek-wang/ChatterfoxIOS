@@ -13,6 +13,8 @@
 NSString *userId = nil;
 NSString *urlRoomId = nil;
 NSString *initialUrl = nil;
+NSTimer *timer;
+static NSString *initialRoomId = @"40"; // 40 is for dev, need to change it to match production later
 static NSString *cfUrlString = @"http://cf.dev.datton.ca/mobile#/";
 static NSString *cfUserProfileUrlString = @"http://cf.dev.datton.ca/api/user/profile";
 static NSString *csrfUrlString = @"http://cf.dev.datton.ca/api";
@@ -34,6 +36,10 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
                                                  name:appDelegate.messageKey
                                                object:nil];
    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgrounding) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foreground) name:UIApplicationDidBecomeActiveNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgrounding) name:UIApplicationWillResignActiveNotification object:nil];
+    
     [_activityIndicator startAnimating];
     
     mainWebView.delegate = self;
@@ -50,6 +56,36 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
 //    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 //    self.activityIndicator.center = self.view.center;
 //    [self.view bringSubviewToFront:self.activityIndicator];
+    
+    
+    NSError *sessionError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&sessionError];
+    
+    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[[NSBundle mainBundle] URLForResource:@"silence" withExtension:@"mp3"]];
+    [self setPlayer:[[AVPlayer alloc] initWithPlayerItem:item]];
+    
+    [[self player] setActionAtItemEnd:AVPlayerActionAtItemEndNone];
+    
+}
+
+- (void)backgrounding {
+    [[self player] play];
+    NSLog(@"Play player and start 20 secs timer");
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(activing :) userInfo:nil repeats:NO];
+}
+
+- (void)activing:(NSTimer *)timer {
+    [[self player] pause];
+    
+    NSLog(@"Pause player");
+}
+
+- (void)foreground {
+    [[self player] pause];
+    [timer invalidate];
+    
+    NSLog(@"Pause player and stop timer");
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -57,19 +93,23 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
+{   
     NSString *requestUrl = [[request URL] absoluteString];
     NSLog(@"url %@", requestUrl);
     
-    if([initialUrl isEqualToString:cfUrlString] && urlRoomId != nil) {
-        NSString *roomUrlString = [NSString stringWithFormat: cfRoomUrlString, urlRoomId];
-        NSURL *roomUrl = [NSURL URLWithString:roomUrlString];
-        
-        NSURLRequest *request = [NSURLRequest requestWithURL: roomUrl];
-        
-        [mainWebView loadRequest:request];
-    }
-    initialUrl = requestUrl;
+//    if([initialUrl isEqualToString:cfUrlString] && urlRoomId != nil && ![urlRoomId isEqualToString:initialRoomId]) {
+//        initialUrl = nil;
+//        urlRoomId = nil;
+//        NSString *roomUrlString = [NSString stringWithFormat: cfRoomUrlString, urlRoomId];
+//        NSURL *roomUrl = [NSURL URLWithString:roomUrlString];
+//        
+//        NSURLRequest *request = [NSURLRequest requestWithURL: roomUrl];
+//        
+//        [mainWebView loadRequest:request];
+//        
+//    } else {
+//        initialUrl = requestUrl;
+//    }
     
     // Save room id to avoid reload once notification comes in
     int indexOfRoom = [requestUrl rangeOfString:@"mobile#/room/"].location;
@@ -151,15 +191,15 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
 
 - (void) updateRegistrationStatus:(NSNotification *) notification {
 //    [_activityIndicator stopAnimating];
-    if ([notification.userInfo objectForKey:@"error"]) {
-        _registeringLabel.text = @"Error registering!";
-        [self showAlert:@"Error registering with GCM" withMessage:notification.userInfo[@"error"]];
-    } else {
-        _registeringLabel.text = @"Registered!";
-        NSString *message = @"Check the xcode debug console for the registration token that you can"
-        " use with the demo server to send notifications to your device";
-        [self showAlert:@"Registration Successful" withMessage:message];
-    };
+//    if ([notification.userInfo objectForKey:@"error"]) {
+//        _registeringLabel.text = @"Error registering!";
+//        [self showAlert:@"Error registering with GCM" withMessage:notification.userInfo[@"error"]];
+//    } else {
+//        _registeringLabel.text = @"Registered!";
+//        NSString *message = @"Check the xcode debug console for the registration token that you can"
+//        " use with the demo server to send notifications to your device";
+//        [self showAlert:@"Registration Successful" withMessage:message];
+//    };
 }
 
 - (void) showReceivedMessage:(NSNotification *) notification {

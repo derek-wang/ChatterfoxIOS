@@ -145,7 +145,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 // [START ack_message_reception]
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    NSLog(@"Notification received: %@", userInfo);
+    NSLog(@"Notification received without handler: %@", userInfo);
     // This works only if the app started the GCM service
     [[GCMService sharedInstance] appDidReceiveMessage:userInfo];
     // Handle the received message

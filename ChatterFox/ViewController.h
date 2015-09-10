@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AVFoundation/AVFoundation.h"
 
 @interface ViewController : UIViewController<UIWebViewDelegate, NSURLConnectionDelegate>
 
@@ -14,5 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIWebView *mainWebView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 extern NSString *userId;
+@property (nonatomic, strong) AVPlayer *player;
+
 @end
 

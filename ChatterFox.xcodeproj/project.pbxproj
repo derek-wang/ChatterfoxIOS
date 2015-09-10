@@ -22,6 +22,7 @@
 		8F66B7141B9661A600C43554 /* splash7681024.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7101B9661A600C43554 /* splash7681024.png */; };
 		8F66B7151B9661A600C43554 /* splash15362048.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7111B9661A600C43554 /* splash15362048.png */; };
 		8F66B7161B9661A600C43554 /* splash20481536.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7121B9661A600C43554 /* splash20481536.png */; };
+		8F66B7181B9A1C3C00C43554 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7171B9A1C3C00C43554 /* silence.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		8F66B7101B9661A600C43554 /* splash7681024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash7681024.png; sourceTree = "<group>"; };
 		8F66B7111B9661A600C43554 /* splash15362048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash15362048.png; sourceTree = "<group>"; };
 		8F66B7121B9661A600C43554 /* splash20481536.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash20481536.png; sourceTree = "<group>"; };
+		8F66B7171B9A1C3C00C43554 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		8F0968801B8CF4CA00605186 /* ChatterFox */ = {
 			isa = PBXGroup;
 			children = (
+				8F66B7171B9A1C3C00C43554 /* silence.mp3 */,
 				8F0968851B8CF4CA00605186 /* AppDelegate.h */,
 				8F0968861B8CF4CA00605186 /* AppDelegate.m */,
 				8F0968881B8CF4CA00605186 /* ViewController.h */,
@@ -219,7 +222,7 @@
 						DevelopmentTeam = N2KU7B7CCM;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -254,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F66B7181B9A1C3C00C43554 /* silence.mp3 in Resources */,
 				8F66B7141B9661A600C43554 /* splash7681024.png in Resources */,
 				8F09688D1B8CF4CA00605186 /* Main.storyboard in Resources */,
 				8F0968AD1B90FDFF00605186 /* iossplash640960.png in Resources */,
