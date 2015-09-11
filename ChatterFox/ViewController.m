@@ -12,9 +12,8 @@
 
 NSString *userId = nil;
 NSString *urlRoomId = nil;
-NSString *initialUrl = nil;
 NSTimer *timer;
-static NSString *initialRoomId = @"40"; // 40 is for dev, need to change it to match production later
+
 static NSString *cfUrlString = @"http://cf.dev.datton.ca/mobile#/";
 static NSString *cfUserProfileUrlString = @"http://cf.dev.datton.ca/api/user/profile";
 static NSString *csrfUrlString = @"http://cf.dev.datton.ca/api";
@@ -23,6 +22,7 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
 
 @implementation ViewController
 @synthesize mainWebView;
+@synthesize player;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,7 +38,6 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgrounding) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foreground) name:UIApplicationDidBecomeActiveNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgrounding) name:UIApplicationWillResignActiveNotification object:nil];
     
     [_activityIndicator startAnimating];
     
@@ -53,11 +52,6 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
     NSLog(@"This is it");    
     // load cf ends
     
-//    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//    self.activityIndicator.center = self.view.center;
-//    [self.view bringSubviewToFront:self.activityIndicator];
-    
-    
     NSError *sessionError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&sessionError];
     
@@ -65,27 +59,31 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
     [self setPlayer:[[AVPlayer alloc] initWithPlayerItem:item]];
     
     [[self player] setActionAtItemEnd:AVPlayerActionAtItemEndNone];
-    
+  
 }
 
 - (void)backgrounding {
-    [[self player] play];
-    NSLog(@"Play player and start 20 secs timer");
+    if(player.rate == 0) {
+        [[self player] play];
+        NSLog(@"Play player and start 30 secs timer");
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(activing :) userInfo:nil repeats:NO];
+        timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(activing :) userInfo:nil repeats:NO];
+    }
 }
 
 - (void)activing:(NSTimer *)timer {
-    [[self player] pause];
-    
-    NSLog(@"Pause player");
+    if(player.rate != 0 && !player.error) {
+        [[self player] pause];
+        NSLog(@"Pause player");
+    }
 }
 
 - (void)foreground {
-    [[self player] pause];
-    [timer invalidate];
-    
-    NSLog(@"Pause player and stop timer");
+    if(player.rate != 0 && !player.error) {
+        [[self player] pause];
+        [timer invalidate];
+        NSLog(@"Pause player and stop timer");
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -93,23 +91,34 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{   
+{
+    
     NSString *requestUrl = [[request URL] absoluteString];
     NSLog(@"url %@", requestUrl);
+
+    int isLoginPage = [requestUrl rangeOfString:@"mobile#/login"].location;
+    if(isLoginPage != NSNotFound) {
+        NSString *saveUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
+        NSString *savedPassword = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
+        
+        NSString *username = [NSString stringWithFormat:@"document.LoginForm.username.value = '%@'", saveUsername];
+        NSString *password = [NSString stringWithFormat:@"document.LoginForm.password.value = '%@'", savedPassword];
+        [self.mainWebView stringByEvaluatingJavaScriptFromString: username];
+        [self.mainWebView stringByEvaluatingJavaScriptFromString: password];
+        [self.mainWebView stringByEvaluatingJavaScriptFromString: @"$('#username').trigger('change')"];
+        [self.mainWebView stringByEvaluatingJavaScriptFromString: @"$('#password').trigger('change')"];
+    }
     
-//    if([initialUrl isEqualToString:cfUrlString] && urlRoomId != nil && ![urlRoomId isEqualToString:initialRoomId]) {
-//        initialUrl = nil;
-//        urlRoomId = nil;
-//        NSString *roomUrlString = [NSString stringWithFormat: cfRoomUrlString, urlRoomId];
-//        NSURL *roomUrl = [NSURL URLWithString:roomUrlString];
-//        
-//        NSURLRequest *request = [NSURLRequest requestWithURL: roomUrl];
-//        
-//        [mainWebView loadRequest:request];
-//        
-//    } else {
-//        initialUrl = requestUrl;
-//    }
+    if([requestUrl isEqualToString:cfUrlString]) {
+        NSString *caughtUsername = [self.mainWebView stringByEvaluatingJavaScriptFromString:@"document.LoginForm.username.value"];
+        NSString *caughtPassword = [self.mainWebView stringByEvaluatingJavaScriptFromString:@"document.LoginForm.password.value"];
+        NSLog(@"Name %@", caughtUsername);
+        NSLog(@"Password %@", caughtPassword);
+        if(caughtUsername.length > 0) {
+            [[NSUserDefaults standardUserDefaults] setObject:caughtUsername forKey:@"username"];
+            [[NSUserDefaults standardUserDefaults] setObject:caughtPassword forKey:@"password"];
+        }
+    }
     
     // Save room id to avoid reload once notification comes in
     int indexOfRoom = [requestUrl rangeOfString:@"mobile#/room/"].location;
