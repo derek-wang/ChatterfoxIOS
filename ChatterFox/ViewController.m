@@ -14,30 +14,51 @@ NSString *userId = nil;
 NSString *urlRoomId = nil;
 NSTimer *timer;
 
-static NSString *cfUrlString = @"http://cf.dev.datton.ca/mobile#/";
-static NSString *cfUserProfileUrlString = @"http://cf.dev.datton.ca/api/user/profile";
-static NSString *csrfUrlString = @"http://cf.dev.datton.ca/api";
-static NSString *cfPostGCMTokenUrlString = @"http://cf.dev.datton.ca/api/gcmToken";
-static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
+// Dev urls
+static NSString *cfUrlString = @"https://dev.chatterfox.ca/mobile#/";
+static NSString *cfUserProfileUrlString = @"https://dev.chatterfox.ca/api/user/profile";
+static NSString *csrfUrlString = @"https://dev.chatterfox.ca/api";
+static NSString *cfPostGCMTokenUrlString = @"https://dev.chatterfox.ca/api/gcmToken";
+static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
+
+// Demo urls for western canada
+//static NSString *cfUrlString = @"http://demo.chatterfox.ca/mobile#/";
+//static NSString *cfUserProfileUrlString = @"http://demo.chatterfox.ca/api/user/profile";
+//static NSString *csrfUrlString = @"http://demo.chatterfox.ca/api";
+//static NSString *cfPostGCMTokenUrlString = @"http://demo.chatterfox.ca/api/gcmToken";
+//static NSString *cfRoomUrlString = @"http://demo.chatterfox.ca/mobile#/room/%@";
+
 
 @implementation ViewController
 @synthesize mainWebView;
 @synthesize player;
+@synthesize reach;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateRegistrationStatus:)
-                                                 name:appDelegate.registrationKey
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showReceivedMessage:)
-                                                 name:appDelegate.messageKey
-                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRegistrationStatus:) name:appDelegate.registrationKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showReceivedMessage:) name:appDelegate.messageKey object:nil];
    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgrounding) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foreground) name:UIApplicationDidBecomeActiveNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgrounding) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foreground) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(appBackgrounding:) name: UIApplicationDidEnterBackgroundNotification object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(appForegrounding:) name: UIApplicationWillEnterForegroundNotification object: nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    self.reach = [Reachability reachabilityForInternetConnection];
+    [reach startNotifier];
+    
+    NetworkStatus remoteHostStatus = [reach currentReachabilityStatus];
+  
+    if(remoteHostStatus == NotReachable) {
+        NSLog(@"**** Internet not available ****");
+        [self showInternetConnectionAlert:@"Internet Not Available" withMessage:nil];
+    }
+    else {
+        NSLog(@"**** Internet connected ****");
+    }
     
     [_activityIndicator startAnimating];
     
@@ -52,39 +73,83 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
     NSLog(@"This is it");    
     // load cf ends
     
-    NSError *sessionError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&sessionError];
-    
-    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[[NSBundle mainBundle] URLForResource:@"silence" withExtension:@"mp3"]];
-    [self setPlayer:[[AVPlayer alloc] initWithPlayerItem:item]];
-    
-    [[self player] setActionAtItemEnd:AVPlayerActionAtItemEndNone];
+//    NSError *sessionError = nil;
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&sessionError];
+//    
+//    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[[NSBundle mainBundle] URLForResource:@"silence" withExtension:@"mp3"]];
+//    [self setPlayer:[[AVPlayer alloc] initWithPlayerItem:item]];
+//    
+//    [[self player] setActionAtItemEnd:AVPlayerActionAtItemEndNone];
   
+//    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+//    [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+//    [mainWebView.scrollView addSubview:refreshControl];
 }
 
-- (void)backgrounding {
-    if(player.rate == 0) {
-        [[self player] play];
-        NSLog(@"Play player and start 30 secs timer");
+- (void)appBackgrounding: (NSNotification *)notification {
+    [self keepAlive];
+    NSLog(@"Backgrounding (app background tasker keeping app run 3 mins in background)-------------------------");
+}
+
+- (void) keepAlive {
+    self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
+        self.backgroundTask = UIBackgroundTaskInvalid;
+        [self keepAlive];
+    }];
+}
+
+- (void)appForegrounding: (NSNotification *)notification {
+    if (self.backgroundTask != UIBackgroundTaskInvalid) {
+        [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
+        self.backgroundTask = UIBackgroundTaskInvalid;
+        NSLog(@"Foregrounding-------------------------");
+    }
+}
+
+- (void) reachabilityChanged:(NSNotification *)notice {
+    NetworkStatus remoteHostStatus = [reach currentReachabilityStatus];
     
-        timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(activing :) userInfo:nil repeats:NO];
+    if(remoteHostStatus == NotReachable) {
+        NSLog(@"**** Internet Not Reachable ****");
+        [self showInternetConnectionAlert:@"Internet Not Available" withMessage:nil];
+    }
+    else {
+        NSLog(@"**** Internet Reached ****");        
     }
 }
 
-- (void)activing:(NSTimer *)timer {
-    if(player.rate != 0 && !player.error) {
-        [[self player] pause];
-        NSLog(@"Pause player");
-    }
-}
+//- (void)backgrounding {
+//    if(player.rate == 0) {
+//        [[self player] play];
+//        NSLog(@"Play player and start 30 secs timer");
+//    
+//        timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(activing :) userInfo:nil repeats:NO];
+//    }
+//}
+//
+//- (void)activing:(NSTimer *)timer {
+//    if(player.rate != 0 && !player.error) {
+//        [[self player] pause];
+//        NSLog(@"Pause player");
+//    }
+//}
+//
+//- (void)foreground {
+//    if(player.rate != 0 && !player.error) {
+//        [[self player] pause];
+//        [timer invalidate];
+//        NSLog(@"Pause player and stop timer");
+//    }
+//}
 
-- (void)foreground {
-    if(player.rate != 0 && !player.error) {
-        [[self player] pause];
-        [timer invalidate];
-        NSLog(@"Pause player and stop timer");
-    }
-}
+//-(void)handleRefresh:(UIRefreshControl *)refresh {
+//    // Reload page
+//    NSURL *url = [NSURL URLWithString:cfUrlString];
+//    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+//    [mainWebView loadRequest:requestObj];
+//    [refresh endRefreshing];
+//}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [_activityIndicator stopAnimating];
@@ -101,12 +166,14 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
         NSString *saveUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
         NSString *savedPassword = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
         
-        NSString *username = [NSString stringWithFormat:@"document.LoginForm.username.value = '%@'", saveUsername];
-        NSString *password = [NSString stringWithFormat:@"document.LoginForm.password.value = '%@'", savedPassword];
-        [self.mainWebView stringByEvaluatingJavaScriptFromString: username];
-        [self.mainWebView stringByEvaluatingJavaScriptFromString: password];
-        [self.mainWebView stringByEvaluatingJavaScriptFromString: @"$('#username').trigger('change')"];
-        [self.mainWebView stringByEvaluatingJavaScriptFromString: @"$('#password').trigger('change')"];
+        if(saveUsername != nil) {
+            NSString *username = [NSString stringWithFormat:@"document.LoginForm.username.value = '%@'", saveUsername];
+            NSString *password = [NSString stringWithFormat:@"document.LoginForm.password.value = '%@'", savedPassword];
+            [self.mainWebView stringByEvaluatingJavaScriptFromString: username];
+            [self.mainWebView stringByEvaluatingJavaScriptFromString: password];
+            [self.mainWebView stringByEvaluatingJavaScriptFromString: @"$('#username').trigger('change')"];
+            [self.mainWebView stringByEvaluatingJavaScriptFromString: @"$('#password').trigger('change')"];
+        }
     }
     
     if([requestUrl isEqualToString:cfUrlString]) {
@@ -218,30 +285,16 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
         // check if the app is in foreground
         UIApplicationState state = [[UIApplication sharedApplication] applicationState];
         if(state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
-            //        [self setupLocalNotifications];
-            //        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-            //        localNotification.userInfo = notification.userInfo;
-            //        localNotification.alertBody = message;
-            //        localNotification.fireDate = [NSDate date];
-            //        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-            
-            
             // load cf message room starts
             NSString *roomId = notification.userInfo[@"roomId"];
-            //NSString *savedRoomId = [[NSUserDefaults standardUserDefaults] objectForKey:@"RoomId"];
             
             if(![roomId isEqualToString:urlRoomId]) {
-                //self.activityIndicator.hidden = NO;
-                //[self.activityIndicator startAnimating];
                 NSString *roomUrlString = [NSString stringWithFormat: cfRoomUrlString, roomId];
                 NSURL *roomUrl = [NSURL URLWithString:roomUrlString];
                 
                 NSURLRequest *request = [NSURLRequest requestWithURL: roomUrl];
                 
                 [mainWebView loadRequest:request];
-                    
-                //NSURLConnection *connectToRoom = [NSURLConnection connectionWithRequest:request delegate:self];
-                //[[NSUserDefaults standardUserDefaults] setObject:roomId forKey:@"RoomId"];
             }
             // load cf message room ends
         } else {
@@ -251,12 +304,6 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
     
     //[self showAlert:@"Message received" withMessage:message];
 }
-
-//- (void) connectionDidFinishLoading:(NSURLConnection *) connection {
-//    NSLog(@"Finished loading");
-//    self.activityIndicator.hidden = YES;
-//    [self.activityIndicator stopAnimating];
-//}
 
 - (void)showAlert:(NSString *)title withMessage:(NSString *) message{
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
@@ -290,5 +337,26 @@ static NSString *cfRoomUrlString = @"http://cf.dev.datton.ca/mobile#/room/%@";
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+- (void)showInternetConnectionAlert:(NSString *)title withMessage:(NSString *) message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"Stay"
+                                          otherButtonTitles:@"Close", nil];
+    [alert show];
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    // the user clicked stay
+    if(buttonIndex == 0) {
+        [_activityIndicator stopAnimating];
+    } else if (buttonIndex == 1) {
+        // close app
+        NSLog(@"Close app");
+        exit(0);
+    }
+}
+
 
 @end

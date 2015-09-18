@@ -23,6 +23,8 @@
 		8F66B7151B9661A600C43554 /* splash15362048.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7111B9661A600C43554 /* splash15362048.png */; };
 		8F66B7161B9661A600C43554 /* splash20481536.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7121B9661A600C43554 /* splash20481536.png */; };
 		8F66B7181B9A1C3C00C43554 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7171B9A1C3C00C43554 /* silence.mp3 */; };
+		8FC4DE011BA7421D00D69B6F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */; };
+		8FC4DE041BA7451400D69B6F /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4DE031BA7451400D69B6F /* Connection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,9 @@
 		8F66B7111B9661A600C43554 /* splash15362048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash15362048.png; sourceTree = "<group>"; };
 		8F66B7121B9661A600C43554 /* splash20481536.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash20481536.png; sourceTree = "<group>"; };
 		8F66B7171B9A1C3C00C43554 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8FC4DE021BA7451400D69B6F /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Connection.h; path = ../../../Downloads/Reachability/Reachability/Connection.h; sourceTree = "<group>"; };
+		8FC4DE031BA7451400D69B6F /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Connection.m; path = ../../../Downloads/Reachability/Reachability/Connection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FC4DE011BA7421D00D69B6F /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +120,8 @@
 		8F0968801B8CF4CA00605186 /* ChatterFox */ = {
 			isa = PBXGroup;
 			children = (
+				8FC4DE021BA7451400D69B6F /* Connection.h */,
+				8FC4DE031BA7451400D69B6F /* Connection.m */,
 				8F66B7171B9A1C3C00C43554 /* silence.mp3 */,
 				8F0968851B8CF4CA00605186 /* AppDelegate.h */,
 				8F0968861B8CF4CA00605186 /* AppDelegate.m */,
@@ -163,6 +171,7 @@
 		C43C3976A3FEC2D7B5CFBBFA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */,
 				0E2F8F15ED2F4EC0BE919B0C /* libPods.a */,
 			);
 			name = Frameworks;
@@ -321,6 +330,7 @@
 			files = (
 				8F09688A1B8CF4CA00605186 /* ViewController.m in Sources */,
 				8F0968871B8CF4CA00605186 /* AppDelegate.m in Sources */,
+				8FC4DE041BA7451400D69B6F /* Connection.m in Sources */,
 				8F0968841B8CF4CA00605186 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
