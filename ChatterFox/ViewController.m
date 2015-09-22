@@ -39,13 +39,10 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRegistrationStatus:) name:appDelegate.registrationKey object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showReceivedMessage:) name:appDelegate.messageKey object:nil];
-   
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgrounding) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(foreground) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(appBackgrounding:) name: UIApplicationDidEnterBackgroundNotification object: nil];
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(appForegrounding:) name: UIApplicationWillEnterForegroundNotification object: nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingChanged:) name:NSUserDefaultsDidChangeNotification object:nil];
     
     self.reach = [Reachability reachabilityForInternetConnection];
     [reach startNotifier];
@@ -72,18 +69,33 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
     
     NSLog(@"This is it");    
     // load cf ends
+}
+
+- (void)settingChanged: (NSNotification *)notification {
     
-//    NSError *sessionError = nil;
-//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&sessionError];
-//    
-//    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:[[NSBundle mainBundle] URLForResource:@"silence" withExtension:@"mp3"]];
-//    [self setPlayer:[[AVPlayer alloc] initWithPlayerItem:item]];
-//    
-//    [[self player] setActionAtItemEnd:AVPlayerActionAtItemEndNone];
-  
-//    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-//    [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
-//    [mainWebView.scrollView addSubview:refreshControl];
+    bool enableNotification = [[NSUserDefaults standardUserDefaults] boolForKey:@"notification"];
+    if(enableNotification) {
+        if(![self isHaveRegistrationForNotification]) {
+            NSLog(@"Enable Notification-------------------------Yes");
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeSound)];
+        }
+    } else {
+        NSLog(@"Enable Notification-------------------------No");
+        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+    }
+}
+
+- (BOOL)isHaveRegistrationForNotification {
+    //For ios >= 8.0
+    if  ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+        return [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    
+    //For ios < 8
+    else{
+        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        BOOL deviceEnabled = !(types == UIRemoteNotificationTypeNone);
+        return deviceEnabled;
+    }
 }
 
 - (void)appBackgrounding: (NSNotification *)notification {
@@ -118,38 +130,6 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
         NSLog(@"**** Internet Reached ****");        
     }
 }
-
-//- (void)backgrounding {
-//    if(player.rate == 0) {
-//        [[self player] play];
-//        NSLog(@"Play player and start 30 secs timer");
-//    
-//        timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(activing :) userInfo:nil repeats:NO];
-//    }
-//}
-//
-//- (void)activing:(NSTimer *)timer {
-//    if(player.rate != 0 && !player.error) {
-//        [[self player] pause];
-//        NSLog(@"Pause player");
-//    }
-//}
-//
-//- (void)foreground {
-//    if(player.rate != 0 && !player.error) {
-//        [[self player] pause];
-//        [timer invalidate];
-//        NSLog(@"Pause player and stop timer");
-//    }
-//}
-
-//-(void)handleRefresh:(UIRefreshControl *)refresh {
-//    // Reload page
-//    NSURL *url = [NSURL URLWithString:cfUrlString];
-//    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-//    [mainWebView loadRequest:requestObj];
-//    [refresh endRefreshing];
-//}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [_activityIndicator stopAnimating];

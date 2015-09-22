@@ -25,6 +25,7 @@
 		8F66B7181B9A1C3C00C43554 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7171B9A1C3C00C43554 /* silence.mp3 */; };
 		8FC4DE011BA7421D00D69B6F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */; };
 		8FC4DE041BA7451400D69B6F /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4DE031BA7451400D69B6F /* Connection.m */; };
+		8FC4DE091BB1CC2400D69B6F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8FC4DE081BB1CC2400D69B6F /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8FC4DE021BA7451400D69B6F /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Connection.h; path = ../../../Downloads/Reachability/Reachability/Connection.h; sourceTree = "<group>"; };
 		8FC4DE031BA7451400D69B6F /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Connection.m; path = ../../../Downloads/Reachability/Reachability/Connection.m; sourceTree = "<group>"; };
+		8FC4DE081BB1CC2400D69B6F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				8F09688E1B8CF4CA00605186 /* Images.xcassets */,
 				8F0968901B8CF4CA00605186 /* LaunchScreen.xib */,
 				8F0968811B8CF4CA00605186 /* Supporting Files */,
+				8FC4DE081BB1CC2400D69B6F /* Settings.bundle */,
 			);
 			path = ChatterFox;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			files = (
 				8F66B7181B9A1C3C00C43554 /* silence.mp3 in Resources */,
 				8F66B7141B9661A600C43554 /* splash7681024.png in Resources */,
+				8FC4DE091BB1CC2400D69B6F /* Settings.bundle in Resources */,
 				8F09688D1B8CF4CA00605186 /* Main.storyboard in Resources */,
 				8F0968AD1B90FDFF00605186 /* iossplash640960.png in Resources */,
 				8F66B7151B9661A600C43554 /* splash15362048.png in Resources */,
