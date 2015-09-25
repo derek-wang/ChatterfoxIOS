@@ -13,7 +13,7 @@
 NSString *userId = nil;
 NSString *urlRoomId = nil;
 NSTimer *timer;
-
+NSMutableArray *requestArray;
 // Dev urls
 static NSString *cfUrlString = @"https://dev.chatterfox.ca/mobile#/";
 static NSString *cfUserProfileUrlString = @"https://dev.chatterfox.ca/api/user/profile";
@@ -42,8 +42,7 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(appBackgrounding:) name: UIApplicationDidEnterBackgroundNotification object: nil];
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(appForegrounding:) name: UIApplicationWillEnterForegroundNotification object: nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingChanged:) name:NSUserDefaultsDidChangeNotification object:nil];
-    
+      
     self.reach = [Reachability reachabilityForInternetConnection];
     [reach startNotifier];
     
@@ -69,33 +68,26 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
     
     NSLog(@"This is it");    
     // load cf ends
-}
-
-- (void)settingChanged: (NSNotification *)notification {
+   
+    //self.navigationItem.titleView = [[UIImageView alloc] initWithImage: [[UIImage imageNamed:@"small-cf.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    bool enableNotification = [[NSUserDefaults standardUserDefaults] boolForKey:@"notification"];
-    if(enableNotification) {
-        if(![self isHaveRegistrationForNotification]) {
-            NSLog(@"Enable Notification-------------------------Yes");
-            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeSound)];
-        }
-    } else {
-        NSLog(@"Enable Notification-------------------------No");
-        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-    }
-}
-
-- (BOOL)isHaveRegistrationForNotification {
-    //For ios >= 8.0
-    if  ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-        return [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    UILabel* lbNavTitle = [[UILabel alloc] initWithFrame:CGRectMake(0,0,700,30)];
+    lbNavTitle.textAlignment = NSTextAlignmentLeft;
+    lbNavTitle.text = self.navigationItem.title;
+    lbNavTitle.font = [UIFont fontWithName:@"Helvetica-Bold" size:21];
+    lbNavTitle.textColor = [UIColor colorWithRed:(243/255.f) green:(139/255.f) blue:(34/255.f) alpha:(1.0f)];
+//    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+//    attachment.image = [[UIImage imageNamed:@"small-cf"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    
+//    NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:attachment];
+//    
+//    NSMutableAttributedString *myString= [[NSMutableAttributedString alloc] initWithString:@""];
+//    [myString appendAttributedString:attachmentString];
+//    
+//    lbNavTitle.attributedText = myString;
     
-    //For ios < 8
-    else{
-        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-        BOOL deviceEnabled = !(types == UIRemoteNotificationTypeNone);
-        return deviceEnabled;
-    }
+    self.navigationItem.titleView = lbNavTitle;
+    requestArray = [[NSMutableArray alloc] init];
 }
 
 - (void)appBackgrounding: (NSNotification *)notification {
@@ -140,6 +132,43 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
     
     NSString *requestUrl = [[request URL] absoluteString];
     NSLog(@"url %@", requestUrl);
+    NSLog(@"saved room id %@", urlRoomId);
+    
+    [requestArray addObject: requestUrl];
+    
+    int requestArraySize = [requestArray count];
+    for(NSString *str in requestArray) {
+        NSLog(@"request array %@", str);
+    }
+    if(requestArraySize > 2) {
+        NSString *lastSecondRequest = [requestArray objectAtIndex: requestArraySize - 2];
+        NSLog(@"Last second request **************** %@", lastSecondRequest);
+        
+        // request array second item is default room
+        NSString *defaultRoomRequest = @"http://www.datton.ca";
+        int defaultIndexOfRoom = NSNotFound;
+        for(NSString *req in requestArray) {
+            defaultIndexOfRoom= [req rangeOfString:@"mobile#/room/"].location;
+            if(defaultIndexOfRoom != NSNotFound) {
+                defaultRoomRequest = req;
+                break;
+            }
+        }
+        
+        if(defaultIndexOfRoom != NSNotFound) {
+            NSString *defaultRoomId = [defaultRoomRequest substringWithRange:NSMakeRange(defaultIndexOfRoom + 13, [defaultRoomRequest length] - defaultIndexOfRoom - 13)];
+            NSLog(@"default room id %@", defaultRoomId);
+            
+            if([lastSecondRequest isEqualToString:cfUrlString] && ![urlRoomId isEqualToString: defaultRoomId] && urlRoomId != nil && ![urlRoomId isEqual:[NSNull null]]) {
+                NSString *roomUrlString = [NSString stringWithFormat: cfRoomUrlString, urlRoomId];
+                NSURL *roomUrl = [NSURL URLWithString:roomUrlString];
+                
+                NSURLRequest *request = [NSURLRequest requestWithURL: roomUrl];
+                
+                [mainWebView loadRequest:request];
+            }
+        }
+    }
 
     int isLoginPage = [requestUrl rangeOfString:@"mobile#/login"].location;
     if(isLoginPage != NSNotFound) {
@@ -170,12 +199,12 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
     // Save room id to avoid reload once notification comes in
     int indexOfRoom = [requestUrl rangeOfString:@"mobile#/room/"].location;
     if(indexOfRoom != NSNotFound) {
-        NSLog(@"mobile room ##### %@", [NSString stringWithFormat:@"%i", indexOfRoom]);
+        //NSLog(@"mobile room ##### %@", [NSString stringWithFormat:@"%i", indexOfRoom]);
         
         urlRoomId = [requestUrl substringWithRange:NSMakeRange(indexOfRoom + 13, [requestUrl length] - indexOfRoom - 13)];
         
         NSLog(@"Extract mobile room ID ##### %@", urlRoomId);
-        //[[NSUserDefaults standardUserDefaults] setObject:urlRoomId forKey:@"RoomId"];
+        [[NSUserDefaults standardUserDefaults] setObject:urlRoomId forKey:@"RoomId"];
         
     }
     // Save room id to avoid reload once notification comes in
@@ -337,6 +366,5 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
         exit(0);
     }
 }
-
 
 @end

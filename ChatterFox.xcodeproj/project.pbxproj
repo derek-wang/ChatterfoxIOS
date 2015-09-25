@@ -23,9 +23,10 @@
 		8F66B7151B9661A600C43554 /* splash15362048.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7111B9661A600C43554 /* splash15362048.png */; };
 		8F66B7161B9661A600C43554 /* splash20481536.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7121B9661A600C43554 /* splash20481536.png */; };
 		8F66B7181B9A1C3C00C43554 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7171B9A1C3C00C43554 /* silence.mp3 */; };
+		8FA9F9521BB323C600D922A9 /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA9F9511BB323C600D922A9 /* SettingController.m */; settings = {ASSET_TAGS = (); }; };
+		8FA9F95E1BB3564600D922A9 /* small-cf.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA9F95D1BB3564500D922A9 /* small-cf.png */; settings = {ASSET_TAGS = (); }; };
 		8FC4DE011BA7421D00D69B6F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */; };
 		8FC4DE041BA7451400D69B6F /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4DE031BA7451400D69B6F /* Connection.m */; };
-		8FC4DE091BB1CC2400D69B6F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8FC4DE081BB1CC2400D69B6F /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,10 +65,12 @@
 		8F66B7111B9661A600C43554 /* splash15362048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash15362048.png; sourceTree = "<group>"; };
 		8F66B7121B9661A600C43554 /* splash20481536.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash20481536.png; sourceTree = "<group>"; };
 		8F66B7171B9A1C3C00C43554 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		8FA9F9501BB323C600D922A9 /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingController.h; sourceTree = "<group>"; };
+		8FA9F9511BB323C600D922A9 /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingController.m; sourceTree = "<group>"; };
+		8FA9F95D1BB3564500D922A9 /* small-cf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-cf.png"; path = "../../../Downloads/small-cf.png"; sourceTree = "<group>"; };
 		8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8FC4DE021BA7451400D69B6F /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Connection.h; path = ../../../Downloads/Reachability/Reachability/Connection.h; sourceTree = "<group>"; };
 		8FC4DE031BA7451400D69B6F /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Connection.m; path = ../../../Downloads/Reachability/Reachability/Connection.m; sourceTree = "<group>"; };
-		8FC4DE081BB1CC2400D69B6F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,7 @@
 		8F0968801B8CF4CA00605186 /* ChatterFox */ = {
 			isa = PBXGroup;
 			children = (
+				8FA9F95D1BB3564500D922A9 /* small-cf.png */,
 				8FC4DE021BA7451400D69B6F /* Connection.h */,
 				8FC4DE031BA7451400D69B6F /* Connection.m */,
 				8F66B7171B9A1C3C00C43554 /* silence.mp3 */,
@@ -140,7 +144,8 @@
 				8F09688E1B8CF4CA00605186 /* Images.xcassets */,
 				8F0968901B8CF4CA00605186 /* LaunchScreen.xib */,
 				8F0968811B8CF4CA00605186 /* Supporting Files */,
-				8FC4DE081BB1CC2400D69B6F /* Settings.bundle */,
+				8FA9F9501BB323C600D922A9 /* SettingController.h */,
+				8FA9F9511BB323C600D922A9 /* SettingController.m */,
 			);
 			path = ChatterFox;
 			sourceTree = "<group>";
@@ -226,7 +231,7 @@
 		8F0968761B8CF4CA00605186 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Datton User";
 				TargetAttributes = {
 					8F09687D1B8CF4CA00605186 = {
@@ -270,8 +275,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F66B7181B9A1C3C00C43554 /* silence.mp3 in Resources */,
+				8FA9F95E1BB3564600D922A9 /* small-cf.png in Resources */,
 				8F66B7141B9661A600C43554 /* splash7681024.png in Resources */,
-				8FC4DE091BB1CC2400D69B6F /* Settings.bundle in Resources */,
 				8F09688D1B8CF4CA00605186 /* Main.storyboard in Resources */,
 				8F0968AD1B90FDFF00605186 /* iossplash640960.png in Resources */,
 				8F66B7151B9661A600C43554 /* splash15362048.png in Resources */,
@@ -334,6 +339,7 @@
 			files = (
 				8F09688A1B8CF4CA00605186 /* ViewController.m in Sources */,
 				8F0968871B8CF4CA00605186 /* AppDelegate.m in Sources */,
+				8FA9F9521BB323C600D922A9 /* SettingController.m in Sources */,
 				8FC4DE041BA7451400D69B6F /* Connection.m in Sources */,
 				8F0968841B8CF4CA00605186 /* main.m in Sources */,
 			);
@@ -397,7 +403,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -443,6 +451,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -473,6 +482,7 @@
 				INFOPLIST_FILE = ChatterFox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -489,6 +499,7 @@
 				INFOPLIST_FILE = ChatterFox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -510,6 +521,7 @@
 				);
 				INFOPLIST_FILE = ChatterFoxTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatterFox.app/ChatterFox";
@@ -528,6 +540,7 @@
 				);
 				INFOPLIST_FILE = ChatterFoxTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatterFox.app/ChatterFox";
