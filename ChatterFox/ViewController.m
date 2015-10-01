@@ -9,24 +9,30 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "AudioToolbox/AudioToolbox.h"
+#import "SecondaryViewController.h"
 
 NSString *userId = nil;
 NSString *urlRoomId = nil;
 NSTimer *timer;
 NSMutableArray *requestArray;
+NSString *csrfToken;
+SecondaryViewController *secondaryViewcontroller;
+
 // Dev urls
 static NSString *cfUrlString = @"https://dev.chatterfox.ca/mobile#/";
 static NSString *cfUserProfileUrlString = @"https://dev.chatterfox.ca/api/user/profile";
 static NSString *csrfUrlString = @"https://dev.chatterfox.ca/api";
 static NSString *cfPostGCMTokenUrlString = @"https://dev.chatterfox.ca/api/gcmToken";
 static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
+static NSString *cfResetBadgeUrlString = @"https://dev.chatterfox.ca/api/gcmToken/resetBadgeNumber/%@";
 
 // Demo urls for western canada
-//static NSString *cfUrlString = @"http://demo.chatterfox.ca/mobile#/";
-//static NSString *cfUserProfileUrlString = @"http://demo.chatterfox.ca/api/user/profile";
-//static NSString *csrfUrlString = @"http://demo.chatterfox.ca/api";
-//static NSString *cfPostGCMTokenUrlString = @"http://demo.chatterfox.ca/api/gcmToken";
-//static NSString *cfRoomUrlString = @"http://demo.chatterfox.ca/mobile#/room/%@";
+//static NSString *cfUrlString = @"https://demo.chatterfox.ca/mobile#/";
+//static NSString *cfUserProfileUrlString = @"https://demo.chatterfox.ca/api/user/profile";
+//static NSString *csrfUrlString = @"https://demo.chatterfox.ca/api";
+//static NSString *cfPostGCMTokenUrlString = @"https://demo.chatterfox.ca/api/gcmToken";
+//static NSString *cfRoomUrlString = @"https://demo.chatterfox.ca/mobile#/room/%@";
+//static NSString *cfResetBadgeUrlString = @"https://demo.chatterfox.ca/api/gcmToken/resetBadgeNumber/%@";
 
 
 @implementation ViewController
@@ -76,18 +82,35 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
     lbNavTitle.text = self.navigationItem.title;
     lbNavTitle.font = [UIFont fontWithName:@"Helvetica-Bold" size:21];
     lbNavTitle.textColor = [UIColor colorWithRed:(243/255.f) green:(139/255.f) blue:(34/255.f) alpha:(1.0f)];
-//    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
-//    attachment.image = [[UIImage imageNamed:@"small-cf"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:attachment];
-//    
-//    NSMutableAttributedString *myString= [[NSMutableAttributedString alloc] initWithString:@""];
-//    [myString appendAttributedString:attachmentString];
-//    
-//    lbNavTitle.attributedText = myString;
     
     self.navigationItem.titleView = lbNavTitle;
+    
+    // initialize the request array
     requestArray = [[NSMutableArray alloc] init];
+    
+    // register tap gesture recognizer to show/hide navigation bar    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToShowHideNavigationBar)];
+    tap.numberOfTapsRequired = 2;
+    tap.delegate = self;
+    [mainWebView addGestureRecognizer:tap];
+    
+    // stop UIWebView from “bouncing” vertically
+    mainWebView.scrollView.bounces = NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+-(void) handleTapToShowHideNavigationBar {
+    // check if the Navigation Bar is shown
+    if (self.navigationController.navigationBar.hidden == NO) {
+        // hide the Navigation Bar
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    } else if (self.navigationController.navigationBar.hidden == YES) {
+        // if Navigation Bar is already hidden, show the Navigation Bar
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
 }
 
 - (void)appBackgrounding: (NSNotification *)notification {
@@ -108,6 +131,35 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
         [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
         self.backgroundTask = UIBackgroundTaskInvalid;
         NSLog(@"Foregrounding-------------------------");
+        
+        NSLog(@"Resetting badge number-------------------------");
+        [self resetBadgeNumber];
+    }
+}
+
+- (void) resetBadgeNumber {
+    // reset badge number on server side and app self
+    if(csrfToken != nil && userId != nil) {
+      
+        NSString *resetBadgeUrlString = [NSString stringWithFormat: cfResetBadgeUrlString, userId];
+        NSURLRequest *resetBadgeRequest = [NSURLRequest requestWithURL: [NSURL URLWithString:resetBadgeUrlString]];
+        NSMutableURLRequest *mutableResetBadgeRequest = [resetBadgeRequest mutableCopy];
+        
+        [mutableResetBadgeRequest setHTTPMethod:@"POST"];
+        [mutableResetBadgeRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [mutableResetBadgeRequest setValue:@"X-CSRF-HEADER" forHTTPHeaderField:@"X-CSRF-TOKEN"];
+        [mutableResetBadgeRequest setValue:csrfToken forHTTPHeaderField: @"X-CSRF-TOKEN"];
+        resetBadgeRequest = [mutableResetBadgeRequest copy];
+        
+        NSHTTPURLResponse *resetBadgeResponse = nil;
+        [NSURLConnection sendSynchronousRequest: resetBadgeRequest returningResponse: &resetBadgeResponse error: nil];
+        
+        if([resetBadgeResponse statusCode] == 200) {
+            NSLog(@"Reset badge number SUCCESSFULLY ------ ");
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+        } else {
+            NSLog(@"Reset badge number FAILED -------------");
+        }
     }
 }
 
@@ -129,10 +181,17 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    
     NSString *requestUrl = [[request URL] absoluteString];
     NSLog(@"url %@", requestUrl);
     NSLog(@"saved room id %@", urlRoomId);
+    
+    if(navigationType == UIWebViewNavigationTypeLinkClicked) {    
+        secondaryViewcontroller = [self.storyboard instantiateViewControllerWithIdentifier:@"SecondView"];    
+        secondaryViewcontroller.link = requestUrl;
+        [self.navigationController pushViewController:secondaryViewcontroller animated:YES];
+        
+        return NO;
+    }
     
     [requestArray addObject: requestUrl];
     
@@ -166,6 +225,7 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
                 NSURLRequest *request = [NSURLRequest requestWithURL: roomUrl];
                 
                 [mainWebView loadRequest:request];
+                return NO;
             }
         }
     }
@@ -206,6 +266,8 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
         NSLog(@"Extract mobile room ID ##### %@", urlRoomId);
         [[NSUserDefaults standardUserDefaults] setObject:urlRoomId forKey:@"RoomId"];
         
+        // avoid scroll bottom from anglarjs half show the chat message section sometimes
+        [self performSelector:@selector(scrollBottom) withObject:self afterDelay:0.5 ];
     }
     // Save room id to avoid reload once notification comes in
     
@@ -228,7 +290,6 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
         // gcm token
         
         // get csrf token
-        NSString *csrfToken;
         NSURL *csrfUrl = [NSURL URLWithString:csrfUrlString];
         NSURLRequest *request3 = [NSURLRequest requestWithURL: csrfUrl];
         NSHTTPURLResponse *response3;
@@ -274,6 +335,10 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
     return YES;
 }
 
+- (void) scrollBottom {
+    [self.mainWebView stringByEvaluatingJavaScriptFromString: @"$('#roomMessageArea').scrollTop($('#roomMessageArea')[0].scrollHeight);"];
+}
+
 - (void) updateRegistrationStatus:(NSNotification *) notification {
 //    [_activityIndicator stopAnimating];
 //    if ([notification.userInfo objectForKey:@"error"]) {
@@ -307,7 +372,9 @@ static NSString *cfRoomUrlString = @"https://dev.chatterfox.ca/mobile#/room/%@";
             }
             // load cf message room ends
         } else {
-            AudioServicesPlaySystemSound(1003);       
+            AudioServicesPlaySystemSound(1003);
+            NSLog(@"Resetting badge number-------------------------");
+            [self resetBadgeNumber];
         }
     }
     

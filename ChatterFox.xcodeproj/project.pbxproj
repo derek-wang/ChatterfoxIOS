@@ -25,6 +25,8 @@
 		8F66B7181B9A1C3C00C43554 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8F66B7171B9A1C3C00C43554 /* silence.mp3 */; };
 		8FA9F9521BB323C600D922A9 /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA9F9511BB323C600D922A9 /* SettingController.m */; settings = {ASSET_TAGS = (); }; };
 		8FA9F95E1BB3564600D922A9 /* small-cf.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA9F95D1BB3564500D922A9 /* small-cf.png */; settings = {ASSET_TAGS = (); }; };
+		8FA9F9671BB60B7D00D922A9 /* SecondaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA9F9661BB60B7D00D922A9 /* SecondaryViewController.m */; settings = {ASSET_TAGS = (); }; };
+		8FA9F9691BBCA6C500D922A9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA9F9681BBCA6C500D922A9 /* MediaPlayer.framework */; };
 		8FC4DE011BA7421D00D69B6F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */; };
 		8FC4DE041BA7451400D69B6F /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4DE031BA7451400D69B6F /* Connection.m */; };
 /* End PBXBuildFile section */
@@ -68,6 +70,9 @@
 		8FA9F9501BB323C600D922A9 /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingController.h; sourceTree = "<group>"; };
 		8FA9F9511BB323C600D922A9 /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingController.m; sourceTree = "<group>"; };
 		8FA9F95D1BB3564500D922A9 /* small-cf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-cf.png"; path = "../../../Downloads/small-cf.png"; sourceTree = "<group>"; };
+		8FA9F9651BB60B7D00D922A9 /* SecondaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondaryViewController.h; sourceTree = "<group>"; };
+		8FA9F9661BB60B7D00D922A9 /* SecondaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondaryViewController.m; sourceTree = "<group>"; };
+		8FA9F9681BBCA6C500D922A9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8FC4DE021BA7451400D69B6F /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Connection.h; path = ../../../Downloads/Reachability/Reachability/Connection.h; sourceTree = "<group>"; };
 		8FC4DE031BA7451400D69B6F /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Connection.m; path = ../../../Downloads/Reachability/Reachability/Connection.m; sourceTree = "<group>"; };
@@ -78,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FA9F9691BBCA6C500D922A9 /* MediaPlayer.framework in Frameworks */,
 				8FC4DE011BA7421D00D69B6F /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,6 +152,8 @@
 				8F0968811B8CF4CA00605186 /* Supporting Files */,
 				8FA9F9501BB323C600D922A9 /* SettingController.h */,
 				8FA9F9511BB323C600D922A9 /* SettingController.m */,
+				8FA9F9651BB60B7D00D922A9 /* SecondaryViewController.h */,
+				8FA9F9661BB60B7D00D922A9 /* SecondaryViewController.m */,
 			);
 			path = ChatterFox;
 			sourceTree = "<group>";
@@ -179,6 +187,7 @@
 		C43C3976A3FEC2D7B5CFBBFA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8FA9F9681BBCA6C500D922A9 /* MediaPlayer.framework */,
 				8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */,
 				0E2F8F15ED2F4EC0BE919B0C /* libPods.a */,
 			);
@@ -338,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F09688A1B8CF4CA00605186 /* ViewController.m in Sources */,
+				8FA9F9671BB60B7D00D922A9 /* SecondaryViewController.m in Sources */,
 				8F0968871B8CF4CA00605186 /* AppDelegate.m in Sources */,
 				8FA9F9521BB323C600D922A9 /* SettingController.m in Sources */,
 				8FC4DE041BA7451400D69B6F /* Connection.m in Sources */,
