@@ -1,6 +1,5 @@
 //
 //  ViewController.m
-//  cloudmessaging
 //
 //  Created by Datton User on 2015-08-17.
 //  Copyright (c) 2015 Datton User. All rights reserved.
@@ -16,6 +15,7 @@ NSString *urlRoomId = nil;
 NSTimer *timer;
 NSMutableArray *requestArray;
 NSString *csrfToken;
+NSString *badgeNumber;
 SecondaryViewController *secondaryViewcontroller;
 
 // Dev urls
@@ -132,33 +132,37 @@ static NSString *cfResetBadgeUrlString = @"https://dev.chatterfox.ca/api/gcmToke
         self.backgroundTask = UIBackgroundTaskInvalid;
         NSLog(@"Foregrounding-------------------------");
         
-        NSLog(@"Resetting badge number-------------------------");
+        // reset badge number
         [self resetBadgeNumber];
     }
 }
 
 - (void) resetBadgeNumber {
     // reset badge number on server side and app self
-    if(csrfToken != nil && userId != nil) {
-      
-        NSString *resetBadgeUrlString = [NSString stringWithFormat: cfResetBadgeUrlString, userId];
-        NSURLRequest *resetBadgeRequest = [NSURLRequest requestWithURL: [NSURL URLWithString:resetBadgeUrlString]];
-        NSMutableURLRequest *mutableResetBadgeRequest = [resetBadgeRequest mutableCopy];
-        
-        [mutableResetBadgeRequest setHTTPMethod:@"POST"];
-        [mutableResetBadgeRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [mutableResetBadgeRequest setValue:@"X-CSRF-HEADER" forHTTPHeaderField:@"X-CSRF-TOKEN"];
-        [mutableResetBadgeRequest setValue:csrfToken forHTTPHeaderField: @"X-CSRF-TOKEN"];
-        resetBadgeRequest = [mutableResetBadgeRequest copy];
-        
-        NSHTTPURLResponse *resetBadgeResponse = nil;
-        [NSURLConnection sendSynchronousRequest: resetBadgeRequest returningResponse: &resetBadgeResponse error: nil];
-        
-        if([resetBadgeResponse statusCode] == 200) {
-            NSLog(@"Reset badge number SUCCESSFULLY ------ ");
-            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-        } else {
-            NSLog(@"Reset badge number FAILED -------------");
+    if(csrfToken != nil && userId != nil && badgeNumber != nil) {
+        int badgeNumberInt = [badgeNumber intValue];
+        if(badgeNumberInt > 0) {
+            NSLog(@"Resetting badge number-------------------------");
+            NSString *resetBadgeUrlString = [NSString stringWithFormat: cfResetBadgeUrlString, userId];
+            NSURLRequest *resetBadgeRequest = [NSURLRequest requestWithURL: [NSURL URLWithString:resetBadgeUrlString]];
+            NSMutableURLRequest *mutableResetBadgeRequest = [resetBadgeRequest mutableCopy];
+            
+            [mutableResetBadgeRequest setHTTPMethod:@"POST"];
+            [mutableResetBadgeRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            [mutableResetBadgeRequest setValue:@"X-CSRF-HEADER" forHTTPHeaderField:@"X-CSRF-TOKEN"];
+            [mutableResetBadgeRequest setValue:csrfToken forHTTPHeaderField: @"X-CSRF-TOKEN"];
+            resetBadgeRequest = [mutableResetBadgeRequest copy];
+            
+            NSHTTPURLResponse *resetBadgeResponse = nil;
+            [NSURLConnection sendSynchronousRequest: resetBadgeRequest returningResponse: &resetBadgeResponse error: nil];
+            
+            if([resetBadgeResponse statusCode] == 200) {
+                NSLog(@"Reset badge number SUCCESSFULLY ------ ");
+                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+                badgeNumber = 0;
+            } else {
+                NSLog(@"Reset badge number FAILED -------------");
+            }
         }
     }
 }
@@ -267,7 +271,7 @@ static NSString *cfResetBadgeUrlString = @"https://dev.chatterfox.ca/api/gcmToke
         [[NSUserDefaults standardUserDefaults] setObject:urlRoomId forKey:@"RoomId"];
         
         // avoid scroll bottom from anglarjs half show the chat message section sometimes
-        [self performSelector:@selector(scrollBottom) withObject:self afterDelay:0.5 ];
+        [self performSelector:@selector(scrollBottom) withObject:self afterDelay:0.3 ];
     }
     // Save room id to avoid reload once notification comes in
     
@@ -353,7 +357,7 @@ static NSString *cfResetBadgeUrlString = @"https://dev.chatterfox.ca/api/gcmToke
 }
 
 - (void) showReceivedMessage:(NSNotification *) notification {
-    //NSString *message = notification.userInfo[@"aps"][@"alert"];
+    badgeNumber = notification.userInfo[@"aps"][@"badge"];
     
     if(userId != nil) {
         // check if the app is in foreground
@@ -373,7 +377,7 @@ static NSString *cfResetBadgeUrlString = @"https://dev.chatterfox.ca/api/gcmToke
             // load cf message room ends
         } else {
             AudioServicesPlaySystemSound(1003);
-            NSLog(@"Resetting badge number-------------------------");
+            // reset badge number
             [self resetBadgeNumber];
         }
     }
