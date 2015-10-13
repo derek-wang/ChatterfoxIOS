@@ -13,8 +13,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *helpBtn;
 @property (weak, nonatomic) IBOutlet UISwitch *enableNotification;
 @property (strong, nonatomic) IBOutlet UITableView *settingTableView;
+@property (weak, nonatomic) IBOutlet UIButton *clearImageCacheBtn;
 
 - (IBAction)enableNotificationDidChangeValue:(id)sender;
 - (IBAction)helpClicked:(id)sender;
+- (IBAction)clearImageCacheClicked:(id)sender;
+
 
 @end

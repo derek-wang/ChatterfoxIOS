@@ -28,6 +28,7 @@
 		8FA9F9671BB60B7D00D922A9 /* SecondaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA9F9661BB60B7D00D922A9 /* SecondaryViewController.m */; settings = {ASSET_TAGS = (); }; };
 		8FA9F9691BBCA6C500D922A9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA9F9681BBCA6C500D922A9 /* MediaPlayer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8FA9F96C1BC4495900D922A9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA9F96A1BBDFDB200D922A9 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		8FA9F96F1BC824A000D922A9 /* RemoteImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA9F96E1BC824A000D922A9 /* RemoteImageView.m */; settings = {ASSET_TAGS = (); }; };
 		8FC4DE011BA7421D00D69B6F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */; };
 		8FC4DE041BA7451400D69B6F /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4DE031BA7451400D69B6F /* Connection.m */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,8 @@
 		8FA9F9661BB60B7D00D922A9 /* SecondaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondaryViewController.m; sourceTree = "<group>"; };
 		8FA9F9681BBCA6C500D922A9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		8FA9F96A1BBDFDB200D922A9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		8FA9F96D1BC824A000D922A9 /* RemoteImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteImageView.h; sourceTree = "<group>"; };
+		8FA9F96E1BC824A000D922A9 /* RemoteImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteImageView.m; sourceTree = "<group>"; };
 		8FC4DE001BA7421D00D69B6F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8FC4DE021BA7451400D69B6F /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Connection.h; path = ../../../Downloads/Reachability/Reachability/Connection.h; sourceTree = "<group>"; };
 		8FC4DE031BA7451400D69B6F /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Connection.m; path = ../../../Downloads/Reachability/Reachability/Connection.m; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				8FA9F9511BB323C600D922A9 /* SettingController.m */,
 				8FA9F9651BB60B7D00D922A9 /* SecondaryViewController.h */,
 				8FA9F9661BB60B7D00D922A9 /* SecondaryViewController.m */,
+				8FA9F96D1BC824A000D922A9 /* RemoteImageView.h */,
+				8FA9F96E1BC824A000D922A9 /* RemoteImageView.m */,
 			);
 			path = ChatterFox;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F09688A1B8CF4CA00605186 /* ViewController.m in Sources */,
+				8FA9F96F1BC824A000D922A9 /* RemoteImageView.m in Sources */,
 				8FA9F9671BB60B7D00D922A9 /* SecondaryViewController.m in Sources */,
 				8F0968871B8CF4CA00605186 /* AppDelegate.m in Sources */,
 				8FA9F9521BB323C600D922A9 /* SettingController.m in Sources */,
@@ -491,6 +497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ChatterFox/Info.plist;
@@ -508,6 +515,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				INFOPLIST_FILE = ChatterFox/Info.plist;

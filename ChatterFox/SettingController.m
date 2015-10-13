@@ -7,6 +7,7 @@
 //
 
 #import "SettingController.h"
+#import "RemoteImageView.h"
 
 @implementation SettingController
 
@@ -54,6 +55,10 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: launchUrl]];
 }
 
+- (IBAction)clearImageCacheClicked:(id)sender {
+    [self showClearImageCache:@"Clear Image Cache" withMessage:nil];
+}
+
 - (BOOL)isHaveRegistrationForNotification {
     //For ios >= 8.0
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -63,6 +68,22 @@
         UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
         BOOL deviceEnabled = !(types == UIRemoteNotificationTypeNone);
         return deviceEnabled;
+    }
+}
+
+- (void)showClearImageCache:(NSString *)title withMessage:(NSString *) message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"No"
+                                          otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSLog(@"Cleared image cache");
+        [RemoteImageView clearCache];
     }
 }
 
